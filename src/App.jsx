@@ -1,9 +1,9 @@
 import {useState, useEffect} from "react";
 import logo from "./logo.svg";
 import "./App.css";
-// WE IMPORT OUR COMPONENTS
 import MovieDisplay from "./components/MovieDisplay";
 import Form from "./components/Form";
+
 
 export default function App() {
   //variable with your apiKey
@@ -22,14 +22,21 @@ export default function App() {
     const data = await response.json();
     //set the Movie state to the movie
     setMovie(data);
+  } catch(e){
+      console.error(e)
+    }
   };
+
+  useEffect(() => {
+    getMovie("Clueless");
+  }, []);
 
   // USE OUR COMPONENTS IN APPs RETURNED JSX
   // We pass the getMovie function as a prop called moviesearch
   return (
     <div className="App">
       <Form moviesearch={getMovie} />
-      <MovieDisplay />
+      <MovieDisplay movie={movie} />
     </div>
   );
 }
